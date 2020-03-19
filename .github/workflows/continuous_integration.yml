@@ -19,7 +19,6 @@ jobs:
       run: |
         # ./build.sh fetch_sources
         # ./build.sh patch_sources
-        # ./build.sh compile
-        ./build.sh
+        ./build.sh compile
 
 # TODO: artifacts
