@@ -17,8 +17,9 @@ jobs:
 
     - name: Build
       run: |
-        ./build.sh fetch_sources
-        ./build.sh patch_sources
-        ./build.sh compile
+        # ./build.sh fetch_sources
+        # ./build.sh patch_sources
+        # ./build.sh compile
+        ./build.sh
 
 # TODO: artifacts
