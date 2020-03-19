@@ -2,6 +2,21 @@ name: Continuous Integration
 
 on: [push, pull_request]
 
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get -y install meson pkg-config mingw-w64-tools g++-mingw-w64-i686 g++-mingw-w64-x86-64 wine64 wine32
+
+    - name: Build
+      run: |
+        ./build.sh compile
+
+# TODO: artifacts
