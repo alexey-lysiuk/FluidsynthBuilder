@@ -1,11 +1,10 @@
-name: Continuous Integration
+name: FluidSynth + Libsndfile
 
 on: [push, pull_request]
 
-
 jobs:
   build:
-    name: FluidSynth + sndfile
+    name: FluidSynth + Libsndfile
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,18 +15,12 @@ jobs:
     - name: Create Package
       run: |
         mkdir -p package/i686 package/x86_64
-        cp build/i686/bin/*.dll package/i686
-        cp build/x86_64/bin/*.dll package/x86_64
+        for arch in i686 x86_64; do
+          cp build/$arch/bin/libfluidsynth*.dll build/$arch/bin/libsndfile*.dll package/$arch
+        done
 
     - name: Upload Package
       uses: actions/upload-artifact@v1
       with:
         path: package
-        name: fluidsynth_sndfile
-
-    # - name: List Directory
-    #   if: always()
-    #   shell: bash
-    #   run: |
-    #     git status
-    #     ls -lR .
+        name: fluidsynth_libsndfile
