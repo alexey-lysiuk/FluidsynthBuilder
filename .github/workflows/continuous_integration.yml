@@ -9,14 +9,21 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: |
-        sudo dpkg --add-architecture i386
-        sudo apt-get update
-        sudo apt-get -y install meson pkg-config mingw-w64-tools g++-mingw-w64-i686 g++-mingw-w64-x86-64 wine64 wine32
+    # - name: Install dependencies
+    #   run: |
+    #     sudo dpkg --add-architecture i386
+    #     sudo apt-get update
+    #     sudo apt-get -y install meson pkg-config mingw-w64-tools g++-mingw-w64-i686 g++-mingw-w64-x86-64 wine64 wine32
 
     - name: Build
       run: |
         ./build.sh
+
+    - name: List Directory
+      if: always()
+      shell: bash
+      run: |
+        git status
+        ls -lR .
 
 # TODO: artifacts
