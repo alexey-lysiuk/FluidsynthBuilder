@@ -5,25 +5,28 @@ on: [push, pull_request]
 
 jobs:
   build:
+    name: FluidSynth + sndfile
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
-    # - name: Install dependencies
-    #   run: |
-    #     sudo dpkg --add-architecture i386
-    #     sudo apt-get update
-    #     sudo apt-get -y install meson pkg-config mingw-w64-tools g++-mingw-w64-i686 g++-mingw-w64-x86-64 wine64 wine32
-
     - name: Build
-      run: |
-        ./build.sh
+      run: ./build.sh
 
-    - name: List Directory
-      if: always()
-      shell: bash
+    - name: Create Package
       run: |
-        git status
-        ls -lR .
+        mkdir package
+        cp build/i686/bin/*.dll build/x86_64/bin/*.dll package
 
-# TODO: artifacts
+    - name: Upload Package
+      uses: actions/upload-artifact@v1
+      with:
+        path: package
+        name: fluidsynth_sndfile
+
+    # - name: List Directory
+    #   if: always()
+    #   shell: bash
+    #   run: |
+    #     git status
+    #     ls -lR .
