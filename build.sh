@@ -283,9 +283,6 @@ main() {
 	shift
 
 	if [[ $Mode == 'compile' ]]; then
-		fetch_sources &&
-			patch_sources || return
-		
 		rm -rf "$ScriptDir/build" || return
 
 		declare Arch
