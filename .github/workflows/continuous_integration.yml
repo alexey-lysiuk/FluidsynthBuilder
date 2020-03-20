@@ -15,8 +15,9 @@ jobs:
 
     - name: Create Package
       run: |
-        mkdir package
-        cp build/i686/bin/*.dll build/x86_64/bin/*.dll package
+        mkdir -p package/i686 package/x86_64
+        cp build/i686/bin/*.dll package/i686
+        cp build/x86_64/bin/*.dll package/x86_64
 
     - name: Upload Package
       uses: actions/upload-artifact@v1
